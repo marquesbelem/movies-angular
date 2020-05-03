@@ -1,0 +1,87 @@
+<div class="container">
+
+	<div class="btn-group mt-4 mb-4" role="group" aria-label="Basic example">
+		<button (click)="getLatest('#17a2b8')" class="btn btn-info">Movies Latest</button>
+		<button (click)="getPopular('#28a745')" class="btn btn-success">Movies Popular</button>
+		<button (click)="getTopRated('#ffc107')" class="btn btn-warning">Movies Top Rated</button>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4" *ngFor="let movie of movies">
+			<div class="card mb-4 shadow-sm">
+
+				<ng-template [ngIf]="movie.poster_path">
+					<img src="https://image.tmdb.org/t/p/original{{movie.poster_path}}" alt="Img Banner"
+						class="img-thumbnail">
+				</ng-template>
+
+				<div class="card-body" [ngStyle]="{'background-color': color}">
+					<h4 class="card-text">{{movie.title}}</h4>
+					<button (click)="open(myDetails)" class="btn btn-sm btn-light">More Details</button>
+
+					<ng-template #myDetails let-modal>
+						<div class="modal-header">
+							<h4 class="modal-title">{{movie.title}}</h4>
+							<button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<ng-template [ngIf]="movie.backdrop_path">
+								<img src="https://image.tmdb.org/t/p/original{{movie.backdrop_path}}" alt="Img Banner"
+									class="img-thumbnail">
+							</ng-template>
+
+							<p>{{movie.overview}}</p>
+
+							<div class="row">
+								<div class="col-3">
+									<small>
+										<svg class="bi bi-award" width="1em" height="1em" viewBox="0 0 16 16"
+											fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd"
+												d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l-1.51-.229L8 1.126l-1.355.702-1.51.229-.684 1.365-1.086 1.072L3.614 6l-.25 1.506 1.087 1.072.684 1.365 1.51.229L8 10.874l1.356-.702 1.509-.229.684-1.365 1.086-1.072L12.387 6l.248-1.506-1.086-1.072-.684-1.365z"
+												clip-rule="evenodd" />
+											<path
+												d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+										</svg>
+										{{movie.popularity}}
+									</small>
+								</div>
+
+								<div class="col-3">
+									<small>
+										<svg class="bi bi-calendar" width="1em" height="1em" viewBox="0 0 16 16"
+											fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd"
+												d="M14 0H2a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"
+												clip-rule="evenodd" />
+											<path fill-rule="evenodd"
+												d="M6.5 7a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z"
+												clip-rule="evenodd" />
+										</svg>
+										{{movie.release_date}}
+									</small>
+								</div>
+
+								<div class="col-3">
+									<small>
+										<svg class="bi bi-chat-dots" width="1em" height="1em" viewBox="0 0 16 16"
+											fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd"
+												d="M2.678 11.894a1 1 0 01.287.801 10.97 10.97 0 01-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8.06 8.06 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 01-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 00.244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 01-2.347-.306c-.52.263-1.639.742-3.468 1.105z"
+												clip-rule="evenodd" />
+											<path
+												d="M5 8a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0z" />
+										</svg>
+										{{movie.original_language}}
+									</small>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
